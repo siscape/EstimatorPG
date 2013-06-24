@@ -33,12 +33,12 @@ class Property {
         listPrice nullable: true, scale: 2
         afterRepairValue nullable: true, scale: 2
         location nullable: true
-        address ()
+        address()
         city nullable: true
         state nullable: true
         zipCode nullable: true
         neighborhood nullable: true
-        yearBuilt ()
+        yearBuilt()
         squareFootage ()
         lotSize nullable: true
         bedrooms nullable: true

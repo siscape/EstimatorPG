@@ -13,7 +13,7 @@ class Project {
 
     static constraints = {
         projectType inList: ["Flip", "Other"]
-        projectStatus ["Draft", "Active", "Completed"]
+        projectStatus inList: ["Draft", "Active", "Completed"]
         startDate nullable: true
         endDate nullable: true
         projectedProfit nullable: true, scale: 2
