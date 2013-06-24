@@ -12,7 +12,7 @@ class RepairCost {
         costName ()
         costCategory inList: ["Roofing", "Exterior", "Interior", "Landscape", "Electrical",
                 "HVAC", "Kitchen", "Bath", "Flooring", "Plumbing", "Structural", "HAZMAT", "Misc"]
-        costType inList: [ "Soffit-Fascia", "Stucco", "Paint", "Drywall", "Window", "Door", "Tile", "Sink", "Other" ]
+        costType nullable: true
         materialCost nullable: true, scale: 2
         laborCost nullable: true, scale: 2
         unit nullable: true
