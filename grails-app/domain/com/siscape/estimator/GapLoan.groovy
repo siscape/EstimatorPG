@@ -13,5 +13,15 @@ class GapLoan {
     static belongsTo = [profitEstimate: ProfitEstimate]
 
     static constraints = {
+
+        gapFunder    ()
+        loanPurpose nullable: true
+        amountLoaned scale: 2
+        loanFees scale: 2, nullable: true
+        totalLoanCost scale: 2
+        loanTerms nullable: true
+        dueDate nullable: true
+        notes nullable: true
+
     }
 }

@@ -12,5 +12,13 @@ class HardMoneyLoan {
     static belongsTo = [profitEstimate: ProfitEstimate]
 
     static constraints = {
+        hardMoneyLender ()
+        amountLoaned scale: 2
+        loanTerm  ()
+        holdingCosts scale: 2
+        costOfPoints scale: 2
+        totalHoldingCosts scale: 2
+        totalLoanCosts scale: 2
+        notes nullable: true, scale: 2
     }
 }

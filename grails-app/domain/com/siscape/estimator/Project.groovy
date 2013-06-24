@@ -12,5 +12,14 @@ class Project {
     ProfitEstimate profitEstimate
 
     static constraints = {
+        projectType inList: ["Flip", "Other"]
+        projectStatus ["Draft", "Active", "Completed"]
+        startDate nullable: true
+        endDate nullable: true
+        projectedProfit nullable: true, scale: 2
+        isStarred ()
+        property nullable: true
+        repairEstimate nullable: true
+        profitEstimate nullable: true
     }
 }

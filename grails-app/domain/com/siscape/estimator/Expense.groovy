@@ -5,5 +5,7 @@ class Expense {
     BigDecimal cost
 
     static constraints = {
+     expenseName nullable: false
+     cost scale: 2
     }
 }
