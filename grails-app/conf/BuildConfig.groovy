@@ -33,13 +33,14 @@ grails.project.dependency.resolution = {
 
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://snapshots.repository.codehaus.org"
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
+        mavenRepo "http://repository.codehaus.org"
+        mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
+        runtime ('org.apache.poi:poi:3.9', 'org.apache.poi:poi-ooxml:3.9')
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
     }
@@ -57,7 +58,6 @@ grails.project.dependency.resolution = {
         build ":tomcat:$grailsVersion"
 
         runtime ":database-migration:1.3.2"
-
         compile ':cache:1.0.1'
 		compile ':gson:1.1.4'
     }
