@@ -40,8 +40,13 @@ grails.project.dependency.resolution = {
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
-        runtime ('org.apache.poi:poi:3.9', 'org.apache.poi:poi-ooxml:3.9')
-
+        //runtime ('org.apache.poi:poi:3.9', 'org.apache.poi:poi-ooxml:3.9')
+        compile (group:'org.apache.poi', name:'poi', version:'3.9');
+        //xlxs file support
+        compile (group:'org.apache.poi', name:'poi-ooxml', version:'3.9') {
+            excludes 'xmlbeans'
+        }
+        compile "org.jadira.usertype:usertype.jodatime:1.9"
         // runtime 'mysql:mysql-connector-java:5.1.22'
     }
 
@@ -60,5 +65,6 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.3.2"
         compile ':cache:1.0.1'
 		compile ':gson:1.1.4'
+        compile ":joda-time:1.4"
     }
 }
