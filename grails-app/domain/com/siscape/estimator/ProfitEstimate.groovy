@@ -3,72 +3,70 @@ package com.siscape.estimator
 class ProfitEstimate {
     Property property
     RepairEstimate repairEstimate
+    ParameterSet parameterSet
+    String address
     BigDecimal offerPrice
     BigDecimal afterRepairValue
+    Integer yearBuilt
+    Integer squareFootage
     BigDecimal repairCosts
     BigDecimal totalExpenses
     BigDecimal closingCosts
     BigDecimal realtorFees
-    BigDecimal totalInvestmentCost
-    BigDecimal offerToList
     BigDecimal emdRequired
-    Boolean usingEmdLoan
+    BigDecimal emdLoanAmount
     BigDecimal emdLoanFee
     BigDecimal cashProfit
-    Integer weeksToClose
-    Integer weeksToRepair
-    Integer weeksToSell
-    Integer weeksToFlip
-    Date projectedSaleDate
+    Integer weeksToHold
+    BigDecimal totalInvestmentCost
+    //Integer weeksToClose
+    //Integer weeksToRepair
+    //Integer weeksToSell
+    //Integer weeksToFlip
+    //Date projectedSaleDate
 
-    Boolean usingHML
+    HardMoneyLoan hardMoneyLoan
     BigDecimal hmlAmount
     BigDecimal hmlCost
     BigDecimal hmlProfit
-    Boolean usingGapFunding
     BigDecimal gapAmount
     BigDecimal gapCost
     BigDecimal hmlWithGapProfit
-    HardMoneyLoan hardMoneyLoan
-    BigDecimal roi
     String estimateLink
     String notes
-    static hasMany = [expenses: Expense, gapLoans: GapLoan]
+    static hasMany = [gapLoans: GapLoan, expenses: Expense]
 
     static constraints = {
-        property ()
-        repairEstimate ()
-        offerPrice scale: 2
-        afterRepairValue scale: 2
-        repairCosts scale: 2
-        expenses()
-        totalExpenses scale: 2
-        closingCosts scale: 2
-        realtorFees scale: 2
-        totalInvestmentCost scale: 2
-        offerToList nullable: true, scale: 2
-        emdRequired nullable: true, scale: 2
-        usingEmdLoan ()
-        emdLoanFee nullable: true, scale: 2
-        cashProfit nullable: true, scale: 2
-        weeksToClose nullable: true
-        weeksToRepair nullable: true
-        weeksToSell nullable: true
-        weeksToFlip nullable: true
-        projectedSaleDate ()
-        usingHML ()
-        hardMoneyLoan ()
-        hmlAmount nullable: true, scale: 2
-        hmlCost nullable: true, scale: 2
-        hmlProfit nullable: true, scale: 2
-        usingGapFunding ()
-        gapLoans ()
-        gapAmount nullable: true, scale: 2
-        gapCost nullable: true, scale: 2
-        hmlWithGapProfit nullable: true, scale: 2
 
-        roi nullable: true, scale: 2
-        estimateLink nullable: true,url: true
+        address ()
+        property nullable: true
+        repairEstimate nullable: true
+        parameterSet nullable: true
+        offerPrice ()
+        afterRepairValue ()
+        yearBuilt nullable: true
+        squareFootage  nullable: true
+        repairCosts ()
+        expenses nullable: true
+        totalExpenses nullable: true
+        closingCosts nullable: true
+        totalInvestmentCost nullable: true
+        realtorFees nullable: true
+        emdRequired nullable: true
+        emdLoanAmount nullable: true
+        emdLoanFee nullable: true
+        cashProfit nullable: true
+        weeksToHold nullable: true
+        hardMoneyLoan nullable: true
+        hmlAmount nullable: true
+        hmlCost  nullable: true
+        hmlProfit nullable: true
+        gapLoans nullable: true
+        gapAmount nullable: true
+        gapCost nullable: true
+        hmlWithGapProfit nullable: true
+        estimateLink nullable: true, url: true
         notes nullable: true
+
     }
 }

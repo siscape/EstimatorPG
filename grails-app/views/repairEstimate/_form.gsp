@@ -71,15 +71,6 @@
 		<g:message code="repairEstimate.repairItems.label" default="Repair Items" />
 		
 	</label>
-	
-<ul class="one-to-many">
-<g:each in="${repairEstimateInstance?.repairItems?}" var="r">
-    <li><g:link controller="repairItem" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="repairItem" action="create" params="['repairEstimate.id': repairEstimateInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'repairItem.label', default: 'RepairItem')])}</g:link>
-</li>
-</ul>
-
+	<g:select name="repairItems" from="${com.siscape.estimator.RepairItem.list()}" multiple="multiple" optionKey="id" size="5" value="${repairEstimateInstance?.repairItems*.id}" class="many-to-many"/>
 </div>
 

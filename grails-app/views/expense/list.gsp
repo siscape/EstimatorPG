@@ -28,6 +28,8 @@
 					
 						<g:sortableColumn property="cost" title="${message(code: 'expense.cost.label', default: 'Cost')}" />
 					
+						<th><g:message code="expense.profitEstimate.label" default="Profit Estimate" /></th>
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -37,6 +39,8 @@
 						<td><g:link action="show" id="${expenseInstance.id}">${fieldValue(bean: expenseInstance, field: "expenseName")}</g:link></td>
 					
 						<td>${fieldValue(bean: expenseInstance, field: "cost")}</td>
+					
+						<td>${fieldValue(bean: expenseInstance, field: "profitEstimate")}</td>
 					
 					</tr>
 				</g:each>

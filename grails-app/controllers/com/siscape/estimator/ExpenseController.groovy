@@ -29,7 +29,18 @@ class ExpenseController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'expense.label', default: 'Expense'), expenseInstance.id])
         redirect(action: "show", id: expenseInstance.id)
     }
+    def saveExpense(Long id) {
+        println(id.toString())
+        params.put('profitEstimate.id',id)
+        def expenseInstance = new Expense(params)
+        if (!expenseInstance.save(flush: true)) {
+            render(view: "create", model: [expenseInstance: expenseInstance])
+            return
+        }
+        String content = g.render(template:"/templates/li", model:[instance:expenseInstance])
+        render content
 
+    }
     def show(Long id) {
         def expenseInstance = Expense.get(id)
         if (!expenseInstance) {

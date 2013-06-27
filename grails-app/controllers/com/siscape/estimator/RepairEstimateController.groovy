@@ -63,8 +63,8 @@ class RepairEstimateController {
         if (version != null) {
             if (repairEstimateInstance.version > version) {
                 repairEstimateInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'repairEstimate.label', default: 'RepairEstimate')] as Object[],
-                        "Another user has updated this RepairEstimate while you were editing")
+                          [message(code: 'repairEstimate.label', default: 'RepairEstimate')] as Object[],
+                          "Another user has updated this RepairEstimate while you were editing")
                 render(view: "edit", model: [repairEstimateInstance: repairEstimateInstance])
                 return
             }

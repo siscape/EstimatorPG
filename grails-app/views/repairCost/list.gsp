@@ -28,7 +28,7 @@
 					
 						<g:sortableColumn property="costCategory" title="${message(code: 'repairCost.costCategory.label', default: 'Cost Category')}" />
 					
-						<g:sortableColumn property="costType" title="${message(code: 'repairCost.costType.label', default: 'Cost Type')}" />
+						<g:sortableColumn property="description" title="${message(code: 'repairCost.description.label', default: 'Description')}" />
 					
 						<g:sortableColumn property="materialCost" title="${message(code: 'repairCost.materialCost.label', default: 'Material Cost')}" />
 					
@@ -46,7 +46,7 @@
 					
 						<td>${fieldValue(bean: repairCostInstance, field: "costCategory")}</td>
 					
-						<td>${fieldValue(bean: repairCostInstance, field: "costType")}</td>
+						<td>${fieldValue(bean: repairCostInstance, field: "description")}</td>
 					
 						<td>${fieldValue(bean: repairCostInstance, field: "materialCost")}</td>
 					

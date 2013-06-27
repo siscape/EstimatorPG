@@ -63,8 +63,8 @@ class RepairItemController {
         if (version != null) {
             if (repairItemInstance.version > version) {
                 repairItemInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'repairItem.label', default: 'RepairItem')] as Object[],
-                        "Another user has updated this RepairItem while you were editing")
+                          [message(code: 'repairItem.label', default: 'RepairItem')] as Object[],
+                          "Another user has updated this RepairItem while you were editing")
                 render(view: "edit", model: [repairItemInstance: repairItemInstance])
                 return
             }

@@ -41,11 +41,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${repairCostInstance?.costType}">
+				<g:if test="${repairCostInstance?.description}">
 				<li class="fieldcontain">
-					<span id="costType-label" class="property-label"><g:message code="repairCost.costType.label" default="Cost Type" /></span>
+					<span id="description-label" class="property-label"><g:message code="repairCost.description.label" default="Description" /></span>
 					
-						<span class="property-value" aria-labelledby="costType-label"><g:fieldValue bean="${repairCostInstance}" field="costType"/></span>
+						<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${repairCostInstance}" field="description"/></span>
 					
 				</li>
 				</g:if>
@@ -82,6 +82,24 @@
 					<span id="unitCost-label" class="property-label"><g:message code="repairCost.unitCost.label" default="Unit Cost" /></span>
 					
 						<span class="property-value" aria-labelledby="unitCost-label"><g:fieldValue bean="${repairCostInstance}" field="unitCost"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${repairCostInstance?.formula}">
+				<li class="fieldcontain">
+					<span id="formula-label" class="property-label"><g:message code="repairCost.formula.label" default="Formula" /></span>
+					
+						<span class="property-value" aria-labelledby="formula-label"><g:fieldValue bean="${repairCostInstance}" field="formula"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${repairCostInstance?.repairCostSet}">
+				<li class="fieldcontain">
+					<span id="repairCostSet-label" class="property-label"><g:message code="repairCost.repairCostSet.label" default="Repair Cost Set" /></span>
+					
+						<span class="property-value" aria-labelledby="repairCostSet-label"><g:fieldValue bean="${repairCostInstance}" field="repairCostSet"/></span>
 					
 				</li>
 				</g:if>

@@ -41,6 +41,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${expenseInstance?.profitEstimate}">
+				<li class="fieldcontain">
+					<span id="profitEstimate-label" class="property-label"><g:message code="expense.profitEstimate.label" default="Profit Estimate" /></span>
+					
+						<span class="property-value" aria-labelledby="profitEstimate-label"><g:link controller="profitEstimate" action="show" id="${expenseInstance?.profitEstimate?.id}">${expenseInstance?.profitEstimate?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

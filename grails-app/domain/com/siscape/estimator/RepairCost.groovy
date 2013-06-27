@@ -6,16 +6,20 @@ class RepairCost {
     String description
     BigDecimal materialCost
     BigDecimal laborCost
-    BigDecimal unit
+    String unit
     BigDecimal unitCost
+    String formula
+    String repairCostSet
     static constraints = {
         costName ()
-        costCategory inList: ["Roofing", "Exterior", "Interior", "Landscape", "Electrical",
-                "HVAC", "Kitchen", "Bath", "Flooring", "Plumbing", "Structural", "HAZMAT", "Misc"]
+        costCategory()
         description nullable: true
         materialCost nullable: true, scale: 2
         laborCost nullable: true, scale: 2
         unit nullable: true
         unitCost scale: 2
+        formula nullable: true
+        repairCostSet nullable: true
+
     }
 }

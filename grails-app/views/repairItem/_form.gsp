@@ -66,11 +66,3 @@
 	<g:datePicker name="dueDate" precision="day"  value="${repairItemInstance?.dueDate}" default="none" noSelection="['': '']" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: repairItemInstance, field: 'repairEstimate', 'error')} required">
-	<label for="repairEstimate">
-		<g:message code="repairItem.repairEstimate.label" default="Repair Estimate" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="repairEstimate" name="repairEstimate.id" from="${com.siscape.estimator.RepairEstimate.list()}" optionKey="id" required="" value="${repairItemInstance?.repairEstimate?.id}" class="many-to-one"/>
-</div>
-

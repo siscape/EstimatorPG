@@ -95,15 +95,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${repairItemInstance?.repairEstimate}">
-				<li class="fieldcontain">
-					<span id="repairEstimate-label" class="property-label"><g:message code="repairItem.repairEstimate.label" default="Repair Estimate" /></span>
-					
-						<span class="property-value" aria-labelledby="repairEstimate-label"><g:link controller="repairEstimate" action="show" id="${repairItemInstance?.repairEstimate?.id}">${repairItemInstance?.repairEstimate?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

@@ -18,6 +18,19 @@ class ProfitEstimateController {
     def create() {
         [profitEstimateInstance: new ProfitEstimate(params)]
     }
+    def getJsonParameters(Long id) {
+        String jsonString = "{\"employees\":["
+
+        ParameterSet.get(id).getParameters().sort{it.sortOrder}.each {Parameter parameter ->
+            jsonString =  jsonString + "{\"calculation\":\"" + parameter.getParameter() + "\", \"formula\":\"" +  parameter.getFormula() + "\"},"
+
+
+
+        }
+        jsonString = jsonString.substring(0, jsonString.length() - 1) + "]}"
+
+        render jsonString
+    }
 
     def save() {
         def profitEstimateInstance = new ProfitEstimate(params)
@@ -29,6 +42,7 @@ class ProfitEstimateController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'profitEstimate.label', default: 'ProfitEstimate'), profitEstimateInstance.id])
         redirect(action: "show", id: profitEstimateInstance.id)
     }
+
 
     def show(Long id) {
         def profitEstimateInstance = ProfitEstimate.get(id)

@@ -9,10 +9,10 @@ class RepairItem {
     String notes
     String itemImage
     Date dueDate
-    static belongsTo = [repairEstimate: RepairEstimate]
+    static belongsTo = RepairEstimate
     static constraints = {
-        repairCategory  inList: ["Roofing", "Exterior", "Interior", "Landscape", "Electrical",
-                "HVAC", "Kitchen", "Bath", "Flooring", "Plumbing", "Structural", "HAZMAT", "Misc"]
+        repairCategory inList: ["ROOFING", "EXTERIOR", "INTERIOR", "LANDSCAPE", "ELECTRICAL",
+                "HVAC", "KITCHEN", "BATH", "FLOORING", "PLUMBING", "STRUCTURAL", "HAZMAT", "MISC"]
         itemName()
         unitAmount()
         repairCost (nullable: true)

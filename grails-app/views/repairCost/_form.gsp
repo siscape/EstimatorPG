@@ -15,15 +15,15 @@
 		<g:message code="repairCost.costCategory.label" default="Cost Category" />
 		
 	</label>
-	<g:select name="costCategory" from="${repairCostInstance.constraints.costCategory.inList}" value="${repairCostInstance?.costCategory}" valueMessagePrefix="repairCost.costCategory" noSelection="['': '']"/>
+	<g:textField name="costCategory" value="${repairCostInstance?.costCategory}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: repairCostInstance, field: 'costType', 'error')} ">
-	<label for="costType">
-		<g:message code="repairCost.costType.label" default="Cost Type" />
+<div class="fieldcontain ${hasErrors(bean: repairCostInstance, field: 'description', 'error')} ">
+	<label for="description">
+		<g:message code="repairCost.description.label" default="Description" />
 		
 	</label>
-	<g:select name="costType" from="${repairCostInstance.constraints.costType.inList}" value="${repairCostInstance?.costType}" valueMessagePrefix="repairCost.costType" noSelection="['': '']"/>
+	<g:textField name="description" value="${repairCostInstance?.description}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: repairCostInstance, field: 'materialCost', 'error')} ">
@@ -47,7 +47,7 @@
 		<g:message code="repairCost.unit.label" default="Unit" />
 		
 	</label>
-	<g:field name="unit" value="${fieldValue(bean: repairCostInstance, field: 'unit')}"/>
+	<g:textField name="unit" value="${repairCostInstance?.unit}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: repairCostInstance, field: 'unitCost', 'error')} required">
@@ -56,5 +56,21 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:field name="unitCost" value="${fieldValue(bean: repairCostInstance, field: 'unitCost')}" required=""/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: repairCostInstance, field: 'formula', 'error')} ">
+	<label for="formula">
+		<g:message code="repairCost.formula.label" default="Formula" />
+		
+	</label>
+	<g:textField name="formula" value="${repairCostInstance?.formula}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: repairCostInstance, field: 'repairCostSet', 'error')} ">
+	<label for="repairCostSet">
+		<g:message code="repairCost.repairCostSet.label" default="Repair Cost Set" />
+		
+	</label>
+	<g:textField name="repairCostSet" value="${repairCostInstance?.repairCostSet}"/>
 </div>
 

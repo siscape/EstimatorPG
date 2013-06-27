@@ -63,8 +63,8 @@ class PropertyController {
         if (version != null) {
             if (propertyInstance.version > version) {
                 propertyInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'property.label', default: 'Property')] as Object[],
-                        "Another user has updated this Property while you were editing")
+                          [message(code: 'property.label', default: 'Property')] as Object[],
+                          "Another user has updated this Property while you were editing")
                 render(view: "edit", model: [propertyInstance: propertyInstance])
                 return
             }

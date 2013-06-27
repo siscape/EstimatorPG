@@ -5,7 +5,9 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'profitEstimate.label', default: 'ProfitEstimate')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-	</head>
+        <r:require module="calculate" />
+
+    </head>
 	<body>
 		<a href="#create-profitEstimate" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">

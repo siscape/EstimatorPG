@@ -63,8 +63,8 @@ class RepairCostController {
         if (version != null) {
             if (repairCostInstance.version > version) {
                 repairCostInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'repairCost.label', default: 'RepairCost')] as Object[],
-                        "Another user has updated this RepairCost while you were editing")
+                          [message(code: 'repairCost.label', default: 'RepairCost')] as Object[],
+                          "Another user has updated this RepairCost while you were editing")
                 render(view: "edit", model: [repairCostInstance: repairCostInstance])
                 return
             }

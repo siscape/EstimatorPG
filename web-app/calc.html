@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+	    <script type="text/javascript" src="jquery.autosize.input.js"></script>
+	 <style>
+input {
+    width: 190px;
+    min-width: 190px;
+    max-width: 1300px;
+    transition: width 0.25s;    
+}
+</style>
+  </head>
+<body>
+
+<h1>My First Web Page</h1>
+
+<p>My First Paragraph.</p>
+
+<select id="people"></select>
+</br>
+<input id="calculation" type="text" />
+</br>
+<input id="myInput" type="text" />
+</br>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+var $select = $('#people');
+var $myInput = $('#myInput');
+var $calculation = $('#calculation');
+$myInput.autosizeInput();
+$calculation.autosizeInput();
+var txt='{"employees":['+
+ '{"calculation":"LOAN_TO_VALUE", "formula":"0.65"},'+
+ '{"calculation":"TIME_TO_HOLD", "formula":"3"},'+
+ '{"calculation":"REPAIR_COSTS", "formula":"25000"},'+
+ '{"calculation":"AFTER_REPAIR_VALUE", "formula":"200000"},'+
+ '{"calculation":"ARV", "formula":"200000"},'+
+ '{"calculation":"POINTS", "formula":"5.5"},'+
+ '{"calculation":"OFFER_PRICE", "formula":"100000"},'+
+ '{"calculation":"DOWN_PAYMENT ", "formula":"$OFFER_PRICE * .03"},'+
+ '{"calculation":"EMD", "formula":"$OFFER_PRICE * .1"},'+
+ '{"calculation":"INTEREST_RATE", "formula":"0.15"},'+
+ '{"calculation":"GAP_RATE", "formula":"0.2"},'+
+ '{"calculation":"REALTOR_FEES", "formula":"$ARV * 0.08"},'+
+ '{"calculation":"LOAN_AMOUNT", "formula":"$AFTER_REPAIR_VALUE * $LOAN_TO_VALUE"},'+
+ '{"calculation":"ESCROW_AND_INSURANCE", "formula":"(1000 + ($OFFER_PRICE/1000 * 4))"},'+
+ '{"calculation":"TOTAL_INVESTMENT_COST", "formula":"$ESCROW_AND_INSURANCE +  $OFFER_PRICE + $REPAIR_COSTS"},'+
+ '{"calculation":"COST_OF_POINTS", "formula":"$POINTS * $LOAN_AMOUNT/100"},'+
+ '{"calculation":"GAP_AMOUNT", "formula":"IF (($TOTAL_INVESTMENT_COST - $LOAN_AMOUNT - $DOWN_PAYMENT - $EMD) < 0) THEN 0 ELSE ($TOTAL_INVESTMENT_COST - $LOAN_AMOUNT - $DOWN_PAYMENT - $EMD) END"},'+
+ //'{"calculation":"GAP_AMOUNT", "formula":"var gap = ($TOTAL_INVESTMENT_COST - $LOAN_AMOUNT - $DOWN_PAYMENT - $EMD); IF (gap<0) THEN 77 ELSE gap END"},'+
+ '{"calculation":"MONTHLY_HOLDING_COSTS", "formula":"($LOAN_AMOUNT * $INTEREST_RATE) / 12"},'+
+ '{"calculation":"TOTAL_HOLDING_COSTS", "formula":"$MONTHLY_HOLDING_COSTS * $TIME_TO_HOLD"},'+
+ '{"calculation":"CASH_PROFIT", "formula":"$AFTER_REPAIR_VALUE - $TOTAL_INVESTMENT_COST - $REALTOR_FEES"},'+
+ '{"calculation":"HML_PROFIT", "formula":"$CASH_PROFIT - $COST_OF_POINTS - $TOTAL_HOLDING_COSTS"},'+
+ '{"calculation":"GAP_FUNDING_FEE", "formula":"$GAP_AMOUNT * $GAP_RATE"},'+
+ '{"calculation":"HML_WITH_GAP_PROFIT", "formula":"$HML_PROFIT  - $GAP_FUNDING_FEE"}]}';
+$(document).ready(function() {
+
+	var formulas = JSON.parse(txt);
+
+	$select.html('');
+	for (var i=0;i<formulas.employees.length;i++)
+	{ 
+	  $select.append('<option value = "' + formulas.employees[i].calculation + '">' + formulas.employees[i].calculation +'</option>');
+	}
+});
+
+function myFunction()
+{
+	var formulas = JSON.parse(txt);
+	var calcs = new Object();
+	for (var i=0;i<formulas.employees.length;i++)
+	{ 
+		calcs[formulas.employees[i].calculation] = formulas.employees[i].formula.replace(/[$]/g, 'f.');
+	}
+
+	var myfunc = function (calculation, f) {
+		for (var prop in f) {
+		  for (var property in f) {
+		  var reg = new RegExp("f."+prop,"g");
+			f[property] = f[property].replace(reg, "("+f[prop]+")");
+		  }
+		}
+		
+		return myeval(f[calculation]);
+	}
+
+	var myeval = function (formula) {
+		formula = formula.replace('IF ', 'if' );
+		
+		formula = formula.replace(' THEN ', '{' );
+		formula = formula.replace(' ELSE ', '} else {' );
+		formula = formula.replace(' END', '' );
+		formula += ';';
+		$calculation.val(formula);
+		return parseFloat( eval(formula).toFixed(2) );
+	}
+	$myInput.val(String(myfunc($("select option:selected").val(), calcs)));
+
+	$myInput.keydown();
+	$calculation.keydown();
+
+}
+</script>
+
+</body>
+</html>

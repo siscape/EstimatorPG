@@ -24,11 +24,11 @@ public class ExcelImportService {
 
     //PROPERTY_TYPE_* was inlined in HEAD
     //not removing this old definitions for a while as there could be merge into another branch which still uses it
-    static ExpectedPropertyType PROPERTY_TYPE_INT = org.grails.plugins.excelimport.ExpectedPropertyType.IntType
-    static ExpectedPropertyType PROPERTY_TYPE_STRING = org.grails.plugins.excelimport.ExpectedPropertyType.StringType
-    static ExpectedPropertyType PROPERTY_TYPE_DATE = org.grails.plugins.excelimport.ExpectedPropertyType.DateType
-    static ExpectedPropertyType PROPERTY_TYPE_DATE_JAVA = org.grails.plugins.excelimport.ExpectedPropertyType.DateJavaType
-    static ExpectedPropertyType PROPERTY_TYPE_DOUBLE = org.grails.plugins.excelimport.ExpectedPropertyType.DoubleType
+    static ExpectedPropertyType PROPERTY_TYPE_INT = excelimport.ExpectedPropertyType.IntType
+    static ExpectedPropertyType PROPERTY_TYPE_STRING = excelimport.ExpectedPropertyType.StringType
+    static ExpectedPropertyType PROPERTY_TYPE_DATE = excelimport.ExpectedPropertyType.DateType
+    static ExpectedPropertyType PROPERTY_TYPE_DATE_JAVA = excelimport.ExpectedPropertyType.DateJavaType
+    static ExpectedPropertyType PROPERTY_TYPE_DOUBLE = excelimport.ExpectedPropertyType.DoubleType
 
 
     static getService() {
@@ -367,7 +367,7 @@ public class ExcelImportService {
             case Cell.CELL_TYPE_STRING:
                 //println "string cell $origcell"
                 //println "string cell propertyConfig $propertyConfiguration"
-                if(!propertyConfiguration || propertyConfiguration.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.StringType) {
+                if(!propertyConfiguration || propertyConfiguration.expectedType == excelimport.ExpectedPropertyType.StringType) {
                     String strValue = cell.stringCellValue
                     if (propertyConfiguration && strValue == propertyConfiguration?.valueEquivalentToNull) {
                         log.info("Found a value that's not null (value ${strValue}), but configuration property says to return null anyway")
@@ -377,7 +377,7 @@ public class ExcelImportService {
                     return strValue
                 }
 
-                if (propertyConfiguration?.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.DateType || propertyConfiguration?.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.DateJavaType) {
+                if (propertyConfiguration?.expectedType == excelimport.ExpectedPropertyType.DateType || propertyConfiguration?.expectedType == excelimport.ExpectedPropertyType.DateJavaType) {
                     def stringDate = cell.stringCellValue
                     //println "Expected type - Date for String value ${cell.stringCellValue}"
                     //println "Expected type - Date for String value ${stringDate.class}"
@@ -386,7 +386,7 @@ public class ExcelImportService {
                         df.setLenient(false) //would fail on Nonexistent dates (ie. February 30th, April 31)
                         def javaDate = df.parse(stringDate)
 
-                        if (propertyConfiguration?.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.DateJavaType) {
+                        if (propertyConfiguration?.expectedType == excelimport.ExpectedPropertyType.DateJavaType) {
                             if(pcc.checkReportValue(javaDate, cell, propertyConfiguration)) {
                                 return propertyConfiguration?.defaultValue
                             }
@@ -406,7 +406,7 @@ public class ExcelImportService {
                     //return propertyConfiguration.defaultValue
                 }
 
-                if (propertyConfiguration?.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.IntType) {
+                if (propertyConfiguration?.expectedType == excelimport.ExpectedPropertyType.IntType) {
                     log.warn "${getCellAddresString(cell)} Expected Type is INT, but cell type is String, trying to extract numeric value"
                     try {
                         return cell.stringCellValue?.toInteger()
@@ -417,7 +417,7 @@ public class ExcelImportService {
                     }
                 }
 
-                if (propertyConfiguration?.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.DoubleType) {
+                if (propertyConfiguration?.expectedType == excelimport.ExpectedPropertyType.DoubleType) {
                     log.warn "${getCellAddresString(cell)}Expected Type is DOUBLE, but cell type is String, trying to extract numeric value"
                     try {
                         return cell.stringCellValue?.toDouble()
@@ -428,7 +428,7 @@ public class ExcelImportService {
                     }
                 }
 
-                if (propertyConfiguration?.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.EmailType) {
+                if (propertyConfiguration?.expectedType == excelimport.ExpectedPropertyType.EmailType) {
                     String strValue = cell.stringCellValue
                     if (propertyConfiguration && strValue == propertyConfiguration?.valueEquivalentToNull) {
                         log.info("Found a value that's not null (value ${strValue}), but configuration property says to return null anyway")
@@ -451,14 +451,14 @@ public class ExcelImportService {
 
             case Cell.CELL_TYPE_NUMERIC:
                 //println "numeric cell $origcell"
-                if (propertyConfiguration?.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.StringType) {
+                if (propertyConfiguration?.expectedType == excelimport.ExpectedPropertyType.StringType) {
                     cell.setCellType(Cell.CELL_TYPE_STRING);
                     return cell.stringCellValue
                 }
                 if (DateUtil.isCellDateFormatted(cell)) {
                     def javaDate = cell.dateCellValue
 
-                    if (propertyConfiguration?.expectedType == org.grails.plugins.excelimport.ExpectedPropertyType.DateJavaType) {
+                    if (propertyConfiguration?.expectedType == excelimport.ExpectedPropertyType.DateJavaType) {
                         if(pcc.checkReportValue(javaDate, cell, propertyConfiguration)) {
                             return propertyConfiguration?.defaultValue
                         }
@@ -555,8 +555,8 @@ public class ExcelImportService {
         }
 
         switch (propertyConfiguration.expectedType) {
-            case org.grails.plugins.excelimport.ExpectedPropertyType.EmailType:
-            case org.grails.plugins.excelimport.ExpectedPropertyType.StringType:
+            case excelimport.ExpectedPropertyType.EmailType:
+            case excelimport.ExpectedPropertyType.StringType:
                 if (value == null) {
                     //dsq-OSM - maybe prefer to write out the valueEquivalentToNull if defined
                     origcell.setCellValue('')
@@ -568,8 +568,8 @@ public class ExcelImportService {
                 }
                 //... type convertion handling
                 break;
-            case org.grails.plugins.excelimport.ExpectedPropertyType.IntType:
-            case org.grails.plugins.excelimport.ExpectedPropertyType.DoubleType:
+            case excelimport.ExpectedPropertyType.IntType:
+            case excelimport.ExpectedPropertyType.DoubleType:
                 if (value == null) {
                     return
                 }
@@ -581,8 +581,8 @@ public class ExcelImportService {
                 log.warn "value $value was supposed tobe numeric but isn't"
                 //... type convertion handling
                 break;
-            case org.grails.plugins.excelimport.ExpectedPropertyType.DateType:
-            case org.grails.plugins.excelimport.ExpectedPropertyType.DateJavaType:
+            case excelimport.ExpectedPropertyType.DateType:
+            case excelimport.ExpectedPropertyType.DateJavaType:
                 if (value == null) {
                     return
                 }

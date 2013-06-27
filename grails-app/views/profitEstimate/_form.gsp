@@ -2,20 +2,36 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'property', 'error')} required">
-	<label for="property">
-		<g:message code="profitEstimate.property.label" default="Property" />
-		<span class="required-indicator">*</span>
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'address', 'error')} ">
+	<label for="address">
+		<g:message code="profitEstimate.address.label" default="Address" />
+		
 	</label>
-	<g:select id="property" name="property.id" from="${com.siscape.estimator.Property.list()}" optionKey="id" required="" value="${profitEstimateInstance?.property?.id}" class="many-to-one"/>
+	<g:textField name="address" value="${profitEstimateInstance?.address}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'repairEstimate', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'property', 'error')} ">
+	<label for="property">
+		<g:message code="profitEstimate.property.label" default="Property" />
+		
+	</label>
+	<g:select id="property" name="property.id" from="${com.siscape.estimator.Property.list()}" optionKey="id" value="${profitEstimateInstance?.property?.id}" class="many-to-one" noSelection="['null': '']"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'repairEstimate', 'error')} ">
 	<label for="repairEstimate">
 		<g:message code="profitEstimate.repairEstimate.label" default="Repair Estimate" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:select id="repairEstimate" name="repairEstimate.id" from="${com.siscape.estimator.RepairEstimate.list()}" optionKey="id" required="" value="${profitEstimateInstance?.repairEstimate?.id}" class="many-to-one"/>
+	<g:select id="repairEstimate" name="repairEstimate.id" from="${com.siscape.estimator.RepairEstimate.list()}" optionKey="id" value="${profitEstimateInstance?.repairEstimate?.id}" class="many-to-one" noSelection="['null': '']"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'parameterSet', 'error')} ">
+	<label for="parameterSet">
+		<g:message code="profitEstimate.parameterSet.label" default="Parameter Set" />
+		
+	</label>
+	<g:select id="parameterSet" name="parameterSet.id" from="${com.siscape.estimator.ParameterSet.list()}" optionKey="id" value="${profitEstimateInstance?.parameterSet?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'offerPrice', 'error')} required">
@@ -34,6 +50,22 @@
 	<g:field name="afterRepairValue" value="${fieldValue(bean: profitEstimateInstance, field: 'afterRepairValue')}" required=""/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'yearBuilt', 'error')} ">
+	<label for="yearBuilt">
+		<g:message code="profitEstimate.yearBuilt.label" default="Year Built" />
+		
+	</label>
+	<g:field name="yearBuilt" type="number" value="${profitEstimateInstance.yearBuilt}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'squareFootage', 'error')} ">
+	<label for="squareFootage">
+		<g:message code="profitEstimate.squareFootage.label" default="Square Footage" />
+		
+	</label>
+	<g:field name="squareFootage" type="number" value="${profitEstimateInstance.squareFootage}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'repairCosts', 'error')} required">
 	<label for="repairCosts">
 		<g:message code="profitEstimate.repairCosts.label" default="Repair Costs" />
@@ -41,53 +73,67 @@
 	</label>
 	<g:field name="repairCosts" value="${fieldValue(bean: profitEstimateInstance, field: 'repairCosts')}" required=""/>
 </div>
+<label for="expenseName">
+    <g:message code="expense.expenseName.label" default="Expense Name" />
+</label>
+<g:textField name="expenseName" value=""/>
+
+<label for="cost">
+    <g:message code="expense.cost.label" default="Cost" />
+</label>
+<g:field name="cost" value=""/>
+<button id="addExpense" onclick="${remoteFunction(action: 'saveExpense',
+        controller: 'expense',
+        id: profitEstimateInstance?.id,
+        onSuccess: 'createExpense(data)',
+        params: '\'expenseName=\' + expenseName.value + \'&cost=\' + cost.value')}">Add</button>
 
 <div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'expenses', 'error')} ">
 	<label for="expenses">
 		<g:message code="profitEstimate.expenses.label" default="Expenses" />
 		
 	</label>
-	<g:select name="expenses" from="${com.siscape.estimator.Expense.list()}" multiple="multiple" optionKey="id" size="5" value="${profitEstimateInstance?.expenses*.id}" class="many-to-many"/>
+<ul class="one-to-many" id="expenses">
+<g:each in="${profitEstimateInstance?.expenses?}" var="e">
+    <li><g:link controller="expense" action="show" id="${e.id}">${e.expenseName}</g:link> <label>${e.cost}</label></li>
+</g:each>
+%{--<li class="add">
+<g:link controller="expense" action="create" params="['profitEstimate.id': profitEstimateInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'expense.label', default: 'Expense')])}</g:link>
+</li>--}%
+</ul>
+
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'totalExpenses', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'totalExpenses', 'error')} ">
 	<label for="totalExpenses">
 		<g:message code="profitEstimate.totalExpenses.label" default="Total Expenses" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="totalExpenses" value="${fieldValue(bean: profitEstimateInstance, field: 'totalExpenses')}" required=""/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'closingCosts', 'error')} required">
-	<label for="closingCosts">
-		<g:message code="profitEstimate.closingCosts.label" default="Closing Costs" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="closingCosts" value="${fieldValue(bean: profitEstimateInstance, field: 'closingCosts')}" required=""/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'realtorFees', 'error')} required">
-	<label for="realtorFees">
-		<g:message code="profitEstimate.realtorFees.label" default="Realtor Fees" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="realtorFees" value="${fieldValue(bean: profitEstimateInstance, field: 'realtorFees')}" required=""/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'totalInvestmentCost', 'error')} required">
-	<label for="totalInvestmentCost">
-		<g:message code="profitEstimate.totalInvestmentCost.label" default="Total Investment Cost" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="totalInvestmentCost" value="${fieldValue(bean: profitEstimateInstance, field: 'totalInvestmentCost')}" required=""/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'offerToList', 'error')} ">
-	<label for="offerToList">
-		<g:message code="profitEstimate.offerToList.label" default="Offer To List" />
 		
 	</label>
-	<g:field name="offerToList" value="${fieldValue(bean: profitEstimateInstance, field: 'offerToList')}"/>
+	<g:field name="totalExpenses" value="${fieldValue(bean: profitEstimateInstance, field: 'totalExpenses')}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'closingCosts', 'error')} ">
+	<label for="closingCosts">
+		<g:message code="profitEstimate.closingCosts.label" default="Closing Costs" />
+		
+	</label>
+	<g:field name="closingCosts" value="${fieldValue(bean: profitEstimateInstance, field: 'closingCosts')}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'totalInvestmentCost', 'error')} ">
+	<label for="totalInvestmentCost">
+		<g:message code="profitEstimate.totalInvestmentCost.label" default="Total Investment Cost" />
+		
+	</label>
+	<g:field name="totalInvestmentCost" value="${fieldValue(bean: profitEstimateInstance, field: 'totalInvestmentCost')}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'realtorFees', 'error')} ">
+	<label for="realtorFees">
+		<g:message code="profitEstimate.realtorFees.label" default="Realtor Fees" />
+		
+	</label>
+	<g:field name="realtorFees" value="${fieldValue(bean: profitEstimateInstance, field: 'realtorFees')}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'emdRequired', 'error')} ">
@@ -98,12 +144,12 @@
 	<g:field name="emdRequired" value="${fieldValue(bean: profitEstimateInstance, field: 'emdRequired')}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'usingEmdLoan', 'error')} ">
-	<label for="usingEmdLoan">
-		<g:message code="profitEstimate.usingEmdLoan.label" default="Using Emd Loan" />
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'emdLoanAmount', 'error')} ">
+	<label for="emdLoanAmount">
+		<g:message code="profitEstimate.emdLoanAmount.label" default="Emd Loan Amount" />
 		
 	</label>
-	<g:checkBox name="usingEmdLoan" value="${profitEstimateInstance?.usingEmdLoan}" />
+	<g:field name="emdLoanAmount" value="${fieldValue(bean: profitEstimateInstance, field: 'emdLoanAmount')}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'emdLoanFee', 'error')} ">
@@ -122,60 +168,20 @@
 	<g:field name="cashProfit" value="${fieldValue(bean: profitEstimateInstance, field: 'cashProfit')}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'weeksToClose', 'error')} ">
-	<label for="weeksToClose">
-		<g:message code="profitEstimate.weeksToClose.label" default="Weeks To Close" />
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'weeksToHold', 'error')} ">
+	<label for="weeksToHold">
+		<g:message code="profitEstimate.weeksToHold.label" default="Weeks To Hold" />
 		
 	</label>
-	<g:field name="weeksToClose" type="number" value="${profitEstimateInstance.weeksToClose}"/>
+	<g:field name="weeksToHold" type="number" value="${profitEstimateInstance.weeksToHold}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'weeksToRepair', 'error')} ">
-	<label for="weeksToRepair">
-		<g:message code="profitEstimate.weeksToRepair.label" default="Weeks To Repair" />
-		
-	</label>
-	<g:field name="weeksToRepair" type="number" value="${profitEstimateInstance.weeksToRepair}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'weeksToSell', 'error')} ">
-	<label for="weeksToSell">
-		<g:message code="profitEstimate.weeksToSell.label" default="Weeks To Sell" />
-		
-	</label>
-	<g:field name="weeksToSell" type="number" value="${profitEstimateInstance.weeksToSell}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'weeksToFlip', 'error')} ">
-	<label for="weeksToFlip">
-		<g:message code="profitEstimate.weeksToFlip.label" default="Weeks To Flip" />
-		
-	</label>
-	<g:field name="weeksToFlip" type="number" value="${profitEstimateInstance.weeksToFlip}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'projectedSaleDate', 'error')} required">
-	<label for="projectedSaleDate">
-		<g:message code="profitEstimate.projectedSaleDate.label" default="Projected Sale Date" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:datePicker name="projectedSaleDate" precision="day"  value="${profitEstimateInstance?.projectedSaleDate}"  />
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'usingHML', 'error')} ">
-	<label for="usingHML">
-		<g:message code="profitEstimate.usingHML.label" default="Using HML" />
-		
-	</label>
-	<g:checkBox name="usingHML" value="${profitEstimateInstance?.usingHML}" />
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'hardMoneyLoan', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'hardMoneyLoan', 'error')} ">
 	<label for="hardMoneyLoan">
 		<g:message code="profitEstimate.hardMoneyLoan.label" default="Hard Money Loan" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:select id="hardMoneyLoan" name="hardMoneyLoan.id" from="${com.siscape.estimator.HardMoneyLoan.list()}" optionKey="id" required="" value="${profitEstimateInstance?.hardMoneyLoan?.id}" class="many-to-one"/>
+	<g:select id="hardMoneyLoan" name="hardMoneyLoan.id" from="${com.siscape.estimator.HardMoneyLoan.list()}" optionKey="id" value="${profitEstimateInstance?.hardMoneyLoan?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'hmlAmount', 'error')} ">
@@ -200,14 +206,6 @@
 		
 	</label>
 	<g:field name="hmlProfit" value="${fieldValue(bean: profitEstimateInstance, field: 'hmlProfit')}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'usingGapFunding', 'error')} ">
-	<label for="usingGapFunding">
-		<g:message code="profitEstimate.usingGapFunding.label" default="Using Gap Funding" />
-		
-	</label>
-	<g:checkBox name="usingGapFunding" value="${profitEstimateInstance?.usingGapFunding}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'gapLoans', 'error')} ">
@@ -249,14 +247,6 @@
 		
 	</label>
 	<g:field name="hmlWithGapProfit" value="${fieldValue(bean: profitEstimateInstance, field: 'hmlWithGapProfit')}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'roi', 'error')} ">
-	<label for="roi">
-		<g:message code="profitEstimate.roi.label" default="Roi" />
-		
-	</label>
-	<g:field name="roi" value="${fieldValue(bean: profitEstimateInstance, field: 'roi')}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: profitEstimateInstance, field: 'estimateLink', 'error')} ">

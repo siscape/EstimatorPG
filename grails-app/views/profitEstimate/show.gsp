@@ -23,6 +23,15 @@
 			</g:if>
 			<ol class="property-list profitEstimate">
 			
+				<g:if test="${profitEstimateInstance?.address}">
+				<li class="fieldcontain">
+					<span id="address-label" class="property-label"><g:message code="profitEstimate.address.label" default="Address" /></span>
+					
+						<span class="property-value" aria-labelledby="address-label"><g:fieldValue bean="${profitEstimateInstance}" field="address"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${profitEstimateInstance?.property}">
 				<li class="fieldcontain">
 					<span id="property-label" class="property-label"><g:message code="profitEstimate.property.label" default="Property" /></span>
@@ -41,6 +50,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${profitEstimateInstance?.parameterSet}">
+				<li class="fieldcontain">
+					<span id="parameterSet-label" class="property-label"><g:message code="profitEstimate.parameterSet.label" default="Parameter Set" /></span>
+					
+						<span class="property-value" aria-labelledby="parameterSet-label"><g:link controller="parameterSet" action="show" id="${profitEstimateInstance?.parameterSet?.id}">${profitEstimateInstance?.parameterSet?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${profitEstimateInstance?.offerPrice}">
 				<li class="fieldcontain">
 					<span id="offerPrice-label" class="property-label"><g:message code="profitEstimate.offerPrice.label" default="Offer Price" /></span>
@@ -55,6 +73,24 @@
 					<span id="afterRepairValue-label" class="property-label"><g:message code="profitEstimate.afterRepairValue.label" default="After Repair Value" /></span>
 					
 						<span class="property-value" aria-labelledby="afterRepairValue-label"><g:fieldValue bean="${profitEstimateInstance}" field="afterRepairValue"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${profitEstimateInstance?.yearBuilt}">
+				<li class="fieldcontain">
+					<span id="yearBuilt-label" class="property-label"><g:message code="profitEstimate.yearBuilt.label" default="Year Built" /></span>
+					
+						<span class="property-value" aria-labelledby="yearBuilt-label"><g:fieldValue bean="${profitEstimateInstance}" field="yearBuilt"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${profitEstimateInstance?.squareFootage}">
+				<li class="fieldcontain">
+					<span id="squareFootage-label" class="property-label"><g:message code="profitEstimate.squareFootage.label" default="Square Footage" /></span>
+					
+						<span class="property-value" aria-labelledby="squareFootage-label"><g:fieldValue bean="${profitEstimateInstance}" field="squareFootage"/></span>
 					
 				</li>
 				</g:if>
@@ -97,15 +133,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${profitEstimateInstance?.realtorFees}">
-				<li class="fieldcontain">
-					<span id="realtorFees-label" class="property-label"><g:message code="profitEstimate.realtorFees.label" default="Realtor Fees" /></span>
-					
-						<span class="property-value" aria-labelledby="realtorFees-label"><g:fieldValue bean="${profitEstimateInstance}" field="realtorFees"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${profitEstimateInstance?.totalInvestmentCost}">
 				<li class="fieldcontain">
 					<span id="totalInvestmentCost-label" class="property-label"><g:message code="profitEstimate.totalInvestmentCost.label" default="Total Investment Cost" /></span>
@@ -115,11 +142,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${profitEstimateInstance?.offerToList}">
+				<g:if test="${profitEstimateInstance?.realtorFees}">
 				<li class="fieldcontain">
-					<span id="offerToList-label" class="property-label"><g:message code="profitEstimate.offerToList.label" default="Offer To List" /></span>
+					<span id="realtorFees-label" class="property-label"><g:message code="profitEstimate.realtorFees.label" default="Realtor Fees" /></span>
 					
-						<span class="property-value" aria-labelledby="offerToList-label"><g:fieldValue bean="${profitEstimateInstance}" field="offerToList"/></span>
+						<span class="property-value" aria-labelledby="realtorFees-label"><g:fieldValue bean="${profitEstimateInstance}" field="realtorFees"/></span>
 					
 				</li>
 				</g:if>
@@ -133,11 +160,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${profitEstimateInstance?.usingEmdLoan}">
+				<g:if test="${profitEstimateInstance?.emdLoanAmount}">
 				<li class="fieldcontain">
-					<span id="usingEmdLoan-label" class="property-label"><g:message code="profitEstimate.usingEmdLoan.label" default="Using Emd Loan" /></span>
+					<span id="emdLoanAmount-label" class="property-label"><g:message code="profitEstimate.emdLoanAmount.label" default="Emd Loan Amount" /></span>
 					
-						<span class="property-value" aria-labelledby="usingEmdLoan-label"><g:formatBoolean boolean="${profitEstimateInstance?.usingEmdLoan}" /></span>
+						<span class="property-value" aria-labelledby="emdLoanAmount-label"><g:fieldValue bean="${profitEstimateInstance}" field="emdLoanAmount"/></span>
 					
 				</li>
 				</g:if>
@@ -160,56 +187,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${profitEstimateInstance?.weeksToClose}">
+				<g:if test="${profitEstimateInstance?.weeksToHold}">
 				<li class="fieldcontain">
-					<span id="weeksToClose-label" class="property-label"><g:message code="profitEstimate.weeksToClose.label" default="Weeks To Close" /></span>
+					<span id="weeksToHold-label" class="property-label"><g:message code="profitEstimate.weeksToHold.label" default="Weeks To Hold" /></span>
 					
-						<span class="property-value" aria-labelledby="weeksToClose-label"><g:fieldValue bean="${profitEstimateInstance}" field="weeksToClose"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${profitEstimateInstance?.weeksToRepair}">
-				<li class="fieldcontain">
-					<span id="weeksToRepair-label" class="property-label"><g:message code="profitEstimate.weeksToRepair.label" default="Weeks To Repair" /></span>
-					
-						<span class="property-value" aria-labelledby="weeksToRepair-label"><g:fieldValue bean="${profitEstimateInstance}" field="weeksToRepair"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${profitEstimateInstance?.weeksToSell}">
-				<li class="fieldcontain">
-					<span id="weeksToSell-label" class="property-label"><g:message code="profitEstimate.weeksToSell.label" default="Weeks To Sell" /></span>
-					
-						<span class="property-value" aria-labelledby="weeksToSell-label"><g:fieldValue bean="${profitEstimateInstance}" field="weeksToSell"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${profitEstimateInstance?.weeksToFlip}">
-				<li class="fieldcontain">
-					<span id="weeksToFlip-label" class="property-label"><g:message code="profitEstimate.weeksToFlip.label" default="Weeks To Flip" /></span>
-					
-						<span class="property-value" aria-labelledby="weeksToFlip-label"><g:fieldValue bean="${profitEstimateInstance}" field="weeksToFlip"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${profitEstimateInstance?.projectedSaleDate}">
-				<li class="fieldcontain">
-					<span id="projectedSaleDate-label" class="property-label"><g:message code="profitEstimate.projectedSaleDate.label" default="Projected Sale Date" /></span>
-					
-						<span class="property-value" aria-labelledby="projectedSaleDate-label"><g:formatDate date="${profitEstimateInstance?.projectedSaleDate}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${profitEstimateInstance?.usingHML}">
-				<li class="fieldcontain">
-					<span id="usingHML-label" class="property-label"><g:message code="profitEstimate.usingHML.label" default="Using HML" /></span>
-					
-						<span class="property-value" aria-labelledby="usingHML-label"><g:formatBoolean boolean="${profitEstimateInstance?.usingHML}" /></span>
+						<span class="property-value" aria-labelledby="weeksToHold-label"><g:fieldValue bean="${profitEstimateInstance}" field="weeksToHold"/></span>
 					
 				</li>
 				</g:if>
@@ -250,15 +232,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${profitEstimateInstance?.usingGapFunding}">
-				<li class="fieldcontain">
-					<span id="usingGapFunding-label" class="property-label"><g:message code="profitEstimate.usingGapFunding.label" default="Using Gap Funding" /></span>
-					
-						<span class="property-value" aria-labelledby="usingGapFunding-label"><g:formatBoolean boolean="${profitEstimateInstance?.usingGapFunding}" /></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${profitEstimateInstance?.gapLoans}">
 				<li class="fieldcontain">
 					<span id="gapLoans-label" class="property-label"><g:message code="profitEstimate.gapLoans.label" default="Gap Loans" /></span>
@@ -293,15 +266,6 @@
 					<span id="hmlWithGapProfit-label" class="property-label"><g:message code="profitEstimate.hmlWithGapProfit.label" default="Hml With Gap Profit" /></span>
 					
 						<span class="property-value" aria-labelledby="hmlWithGapProfit-label"><g:fieldValue bean="${profitEstimateInstance}" field="hmlWithGapProfit"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${profitEstimateInstance?.roi}">
-				<li class="fieldcontain">
-					<span id="roi-label" class="property-label"><g:message code="profitEstimate.roi.label" default="Roi" /></span>
-					
-						<span class="property-value" aria-labelledby="roi-label"><g:fieldValue bean="${profitEstimateInstance}" field="roi"/></span>
 					
 				</li>
 				</g:if>

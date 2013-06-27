@@ -24,17 +24,17 @@
 				<thead>
 					<tr>
 					
+						<g:sortableColumn property="address" title="${message(code: 'profitEstimate.address.label', default: 'Address')}" />
+					
 						<th><g:message code="profitEstimate.property.label" default="Property" /></th>
 					
 						<th><g:message code="profitEstimate.repairEstimate.label" default="Repair Estimate" /></th>
 					
+						<th><g:message code="profitEstimate.parameterSet.label" default="Parameter Set" /></th>
+					
 						<g:sortableColumn property="offerPrice" title="${message(code: 'profitEstimate.offerPrice.label', default: 'Offer Price')}" />
 					
 						<g:sortableColumn property="afterRepairValue" title="${message(code: 'profitEstimate.afterRepairValue.label', default: 'After Repair Value')}" />
-					
-						<g:sortableColumn property="repairCosts" title="${message(code: 'profitEstimate.repairCosts.label', default: 'Repair Costs')}" />
-					
-						<g:sortableColumn property="totalExpenses" title="${message(code: 'profitEstimate.totalExpenses.label', default: 'Total Expenses')}" />
 					
 					</tr>
 				</thead>
@@ -42,17 +42,17 @@
 				<g:each in="${profitEstimateInstanceList}" status="i" var="profitEstimateInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${profitEstimateInstance.id}">${fieldValue(bean: profitEstimateInstance, field: "property")}</g:link></td>
+						<td><g:link action="show" id="${profitEstimateInstance.id}">${fieldValue(bean: profitEstimateInstance, field: "address")}</g:link></td>
+					
+						<td>${fieldValue(bean: profitEstimateInstance, field: "property")}</td>
 					
 						<td>${fieldValue(bean: profitEstimateInstance, field: "repairEstimate")}</td>
+					
+						<td>${fieldValue(bean: profitEstimateInstance, field: "parameterSet")}</td>
 					
 						<td>${fieldValue(bean: profitEstimateInstance, field: "offerPrice")}</td>
 					
 						<td>${fieldValue(bean: profitEstimateInstance, field: "afterRepairValue")}</td>
-					
-						<td>${fieldValue(bean: profitEstimateInstance, field: "repairCosts")}</td>
-					
-						<td>${fieldValue(bean: profitEstimateInstance, field: "totalExpenses")}</td>
 					
 					</tr>
 				</g:each>
